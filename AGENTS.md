@@ -4,15 +4,20 @@ Conventions for this repo. Read before editing anything.
 
 ## What this is
 
-A static site: one hub page plus a folder per subsite. Free-forever hosting on
-GitHub Pages, so the constraints below are load-bearing, not stylistic.
+A static site: one hub page plus a folder per subsite, hosted free on GitHub
+Pages. The rules below are defaults for what lives here today. An idea that
+conflicts with one is out of scope for this site, not rejected: say so, note it
+for later, and don't refuse or water down the idea. The project may expand
+through a personal domain, which would lift some of these rules.
 
-## Hard rules
+## Default behavior
 
 - **No build step.** No bundler, no framework, no npm install to view the site.
   Open an `index.html` and it works.
-- **No backend, no API keys.** Every tool runs client-side. Nothing is uploaded.
-  If an idea needs a server or a paid API, it does not belong here as-is.
+- **Client-side by default.** GitHub Pages is static, so the site itself has no
+  backend. Prefer tools that run fully in the browser. If a feature needs a
+  server or external API, it's out of scope for this site for now, not a bad
+  idea. Never commit secrets.
 - **No CDN dependencies.** Third-party libraries get vendored into
   `<subsite>/vendor/` with their license intact. A dead CDN must never be able to
   break a page.
