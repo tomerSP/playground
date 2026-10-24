@@ -116,6 +116,16 @@ are unnecessary.
   Code (ISO/IEC 23634:2022) is the standards-based alternative, but its current
   reference implementation is not a lightweight browser drop-in.
 
+  **Prototype verdict (September 2026): keep parked.** The RGB-layer prototype
+  reached 2.95–2.96x payload per layer and restored a 2,943-byte payload exactly
+  from its clean canvas, a 320 px resize, JPEG quality 0.65, and the downloaded
+  PNG. It did not meet the physical-image gate: a phone JPEG recovered only
+  1/3 layers at 2,943 bytes, 2/3 at 222 bytes, and 0/3 at 37 bytes. A denser
+  4,204-byte payload also recovered only 2/3 layers after a 320 px resize.
+  Because reconstruction requires all three layers, none of those partial
+  results is usable. Do not integrate bespoke RGB layering without a materially
+  better channel-separation/calibration approach and renewed physical testing.
+
 ## Open questions
 
 - Should Packed mode share this page with Standard mode or become a separate
