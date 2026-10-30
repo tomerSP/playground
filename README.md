@@ -1,24 +1,24 @@
 # Tomer's Playground
 
-Static site: one hub page plus a folder per subsite. No build step, no framework,
-no backend — every tool runs client-side, so hosting is free and permanent.
+Hub for a set of small browser tools. Each tool is its own repo publishing to
+`https://tomersp.github.io/<repo>/`; this repo is the hub page that links them,
+published at `https://tomersp.github.io/playground/`. No build step, no
+framework, no backend.
 
 ## Layout
 
 ```
-index.html          hub page — add a card here for each new subsite
-assets/style.css    shared shell (colors, cards, panels, dark mode)
+index.html          hub page — one card per project
+about/index.html    About page
+assets/style.css    master copy of the shared shell (colors, cards, panels, dark mode)
 qr/index.html       redirect to https://tomersp.github.io/qr/ (moved to its own repo)
 .nojekyll           tells GitHub Pages to serve the files as-is
 ```
 
-## Adding a subsite
+## Adding a project
 
-1. `mkdir <name>` and write `<name>/index.html`.
-2. Link `../assets/style.css` and copy the `.crumb` / `header.site` / `footer.site`
-   block from `about/index.html`.
-3. Add a card to the grid in `index.html`.
-4. Commit and push — GitHub Pages redeploys on its own.
+Create it as its own repo, following `AGENTS.md`, then add a card to the grid in
+`index.html` when it launches.
 
 ## Local preview
 
@@ -28,5 +28,6 @@ npx serve .
 
 ## Renaming the site
 
-The name appears in `index.html` (`<title>`, `<h1>`), each subsite's `.crumb`
-link text, and this file. It is a find-and-replace, not a refactor.
+The name appears in `index.html` (`<title>`, `<h1>`), the About page, each
+project's `.crumb` link text, and this file. It is a find-and-replace across
+repos, not a refactor.

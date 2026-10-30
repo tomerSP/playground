@@ -4,81 +4,87 @@ Conventions for this repo. Read before editing anything.
 
 ## What this is
 
-A static site: one hub page plus a folder per subsite, hosted free on GitHub
-Pages. The rules below are defaults for what lives here today. An idea that
-conflicts with one is out of scope for this site, not rejected: say so, note it
-for later, and don't refuse or water down the idea. The project may expand
-through a personal domain, which would lift some of these rules.
+The hub of Tomer's Playground, published at
+`https://tomersp.github.io/playground/`. It holds only:
+
+- the hub page (`index.html`) — one card per project
+- the About page (`about/`)
+- the master copy of the shared shell (`assets/style.css`)
+- redirect pages for projects that used to live here
+
+Projects do not live here. Each is its own repo, checked out next to this one
+under `C:\D\projects\web\`, publishing its `site/` folder to
+`https://tomersp.github.io/<repo>/`:
+
+| Project | Repo | Status |
+| --- | --- | --- |
+| QR | `tomerSP/qr` | live at `/qr/`; old `/playground/qr/` redirects |
+| Image to ASCII | `tomerSP/image-to-ascii` | pre-launch, not on the hub |
+| Custom calculator | `tomerSP/custom-calculator` | planning, no page |
+
+Work on a project happens in its repo, under its own AGENTS.md.
 
 ## Default behavior
 
-- **No build step.** No bundler, no framework, no npm install to view the site.
-  Open an `index.html` and it works.
-- **Client-side by default.** GitHub Pages is static, so the site itself has no
-  backend. Prefer tools that run fully in the browser. If a feature needs a
-  server or external API, it's out of scope for this site for now, not a bad
-  idea. Never commit secrets.
-- **No CDN dependencies.** Third-party libraries get vendored into
-  `<subsite>/vendor/` with their license intact. A dead CDN must never be able to
-  break a page.
+This repo is itself published by GitHub Pages from the root of `main`, so the
+same constraints apply to everything here. An idea that conflicts with one is
+out of scope for the site, not rejected: say so, note it for later, and don't
+refuse or water down the idea.
+
+- **No build step.** Open an `index.html` and it works.
+- **Client-side only.** No backend, no secrets.
+- **No CDN dependencies.** Vendor anything third-party with its license.
 - **Vanilla everything.** Plain HTML, CSS and ES5-compatible JS in an IIFE.
-- **Ship it, then improve it.** A live narrow tool beats an unpublished broad one.
 
 ## Layout
 
 ```
-index.html          hub — one card per subsite
-assets/style.css    shared shell: tokens, cards, panels, dark mode
-<subsite>/
-  index.html        self-contained page
-  vendor/           vendored third-party libs, if any
+index.html          hub — one card per project
+about/index.html    About page
+assets/style.css    master copy of the shared shell
+qr/index.html       redirect to https://tomersp.github.io/qr/
 .nojekyll           GitHub Pages serves files as-is
 ```
 
-## Planning
+## Adding a project
 
-- QR moved to its own repo (`tomerSP/qr`, local `C:\D\projects\web\qr`) and is
-  published at `https://tomersp.github.io/qr/`. `qr/index.html` here is only a
-  redirect for the old URL; QR planning lives in that repo.
+1. Create a repo next to this one with the layout of `tomerSP/qr`: the public
+   page in `site/`, everything else outside it, and
+   `.github/workflows/pages.yml` publishing `site/`.
+2. Copy `assets/style.css` into `site/assets/`. Copy the `.crumb`,
+   `header.site` and `footer.site` blocks from an existing project page; the
+   crumb links to `https://tomersp.github.io/playground/`.
+3. When it launches, add a card to the grid in `index.html` linking to
+   `https://tomersp.github.io/<repo>/` (and delete the matching `.soon`
+   placeholder if there is one), and add a row to the table above.
 
-## Adding a subsite
+## Moving a project out
 
-1. `mkdir <name>`, write `<name>/index.html`.
-2. Link `../assets/style.css`. Copy the `.crumb`, `header.site` and
-   `footer.site` blocks from `about/index.html` so the shell stays consistent.
-3. Page-specific CSS goes in a `<style>` block on that page — do not grow
-   `assets/style.css` for one page's needs.
-4. Add a card to the grid in `index.html` (and delete the matching `.soon`
-   placeholder if there is one).
-5. Commit. Pages redeploys on its own.
+If a project that is live here moves to its own repo, replace its folder with a
+single `index.html` redirect (see `qr/index.html`: canonical link, `noindex`,
+meta refresh plus a script that keeps the query and hash), so old URLs and
+search rankings carry over.
 
 ## Styling
 
 Use the CSS custom properties in `assets/style.css` (`--ink`, `--bg`, `--panel`,
 `--line`, `--accent`, `--muted`). Never hard-code a color that has a token —
 dark mode is driven entirely by those tokens under
-`@media (prefers-color-scheme: dark)`.
+`@media (prefers-color-scheme: dark)`. Page-specific CSS goes in a `<style>`
+block on that page — do not grow `assets/style.css` for one page's needs.
 
-The one deliberate exception: QR output stays pure `#000` on `#fff` regardless of
-theme, because scanners need the contrast.
+Projects carry copies of `assets/style.css`. When you change it here, say which
+projects need the new copy; don't edit their repos from here.
 
 ## SEO
 
-Each subsite needs a `<title>` and `<meta name="description">` written for the
-search query a real person would type. These pages earn their traffic from
-search; the copy is the product.
-
-## Honesty in the UI
-
-State real limits in the interface rather than failing mysteriously. The QR page
-shows a live byte counter against the true capacity and explains the ~2 KB
-ceiling instead of silently truncating. Hold new tools to that bar.
+Each page needs a `<title>` and `<meta name="description">` written for the
+search query a real person would type.
 
 ## Testing
 
-No test framework. Before committing a change to a subsite, serve the repo and
-exercise the page in a browser — the happy path plus at least one boundary or
-error case. `file://` will not work; use a local server.
+No test framework. Before committing, serve the repo and check the page in a
+browser. `file://` will not work; use a local server.
 
 ## Commits
 
