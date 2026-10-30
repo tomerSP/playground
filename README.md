@@ -8,9 +8,7 @@ no backend — every tool runs client-side, so hosting is free and permanent.
 ```
 index.html          hub page — add a card here for each new subsite
 assets/style.css    shared shell (colors, cards, panels, dark mode)
-qr/                 subsite: file & text → QR code
-  index.html
-  vendor/qrcode.js  qrcode-generator (MIT), vendored so there are no CDN deps
+qr/index.html       redirect to https://tomersp.github.io/qr/ (moved to its own repo)
 .nojekyll           tells GitHub Pages to serve the files as-is
 ```
 
@@ -18,7 +16,7 @@ qr/                 subsite: file & text → QR code
 
 1. `mkdir <name>` and write `<name>/index.html`.
 2. Link `../assets/style.css` and copy the `.crumb` / `header.site` / `footer.site`
-   block from `qr/index.html`.
+   block from `about/index.html`.
 3. Add a card to the grid in `index.html`.
 4. Commit and push — GitHub Pages redeploys on its own.
 

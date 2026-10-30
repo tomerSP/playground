@@ -37,16 +37,15 @@ assets/style.css    shared shell: tokens, cards, panels, dark mode
 
 ## Planning
 
-- For QR features or limits, read `qr/docs/roadmap.md`.
-- QR brainstorming starts in
-  `C:\D\Obsidian\First Vault\Notes\File-to-QR-Code-Conversion.md`; move settled
-  decisions into the roadmap so the repo remains authoritative.
+- QR moved to its own repo (`tomerSP/qr`, local `C:\D\projects\web\qr`) and is
+  published at `https://tomersp.github.io/qr/`. `qr/index.html` here is only a
+  redirect for the old URL; QR planning lives in that repo.
 
 ## Adding a subsite
 
 1. `mkdir <name>`, write `<name>/index.html`.
 2. Link `../assets/style.css`. Copy the `.crumb`, `header.site` and
-   `footer.site` blocks from `qr/index.html` so the shell stays consistent.
+   `footer.site` blocks from `about/index.html` so the shell stays consistent.
 3. Page-specific CSS goes in a `<style>` block on that page — do not grow
    `assets/style.css` for one page's needs.
 4. Add a card to the grid in `index.html` (and delete the matching `.soon`
