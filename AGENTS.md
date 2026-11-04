@@ -5,7 +5,7 @@ Conventions for this repo. Read before editing anything.
 ## What this is
 
 The hub of Tomer's Playground, published at
-`https://tomersp.github.io/playground/`. It holds only:
+`https://tsp-playground.netlify.app/`. It holds only:
 
 - the hub page (`index.html`) — one card per project
 - the About page (`about/`)
@@ -13,20 +13,20 @@ The hub of Tomer's Playground, published at
 - redirect pages for projects that used to live here
 
 Projects do not live here. Each is its own repo, checked out next to this one
-under `C:\D\projects\web\`, publishing its `site/` folder to
-`https://tomersp.github.io/<repo>/`:
+under `C:\D\projects\web\`, publishing its `site/` folder as its own
+Netlify site:
 
 | Project | Repo | Status |
 | --- | --- | --- |
-| QR | `tomerSP/qr` | live at `/qr/`; old `/playground/qr/` redirects |
-| Image to ASCII | `tomerSP/image-to-ascii` | pre-launch, not on the hub |
+| QR | `tomerSP/qr` | live at `https://tsp-qr-maker.netlify.app/`; old `/qr/` here redirects |
+| Image to ASCII | `tomerSP/image-to-ascii` | deployed at `https://image-2-ascii.netlify.app/`; pre-launch, not on the hub |
 | Custom calculator | `tomerSP/custom-calculator` | planning, no page |
 
 Work on a project happens in its repo, under its own AGENTS.md.
 
 ## Default behavior
 
-This repo is itself published by GitHub Pages from the root of `main`, so the
+This repo is itself published by Netlify from the root of `main`, so the
 same constraints apply to everything here. An idea that conflicts with one is
 out of scope for the site, not rejected: say so, note it for later, and don't
 refuse or water down the idea.
@@ -42,20 +42,20 @@ refuse or water down the idea.
 index.html          hub — one card per project
 about/index.html    About page
 assets/style.css    master copy of the shared shell
-qr/index.html       redirect to https://tomersp.github.io/qr/
-.nojekyll           GitHub Pages serves files as-is
+qr/index.html       redirect to https://tsp-qr-maker.netlify.app/
+.nojekyll           GitHub Pages serves files as-is (legacy)
 ```
 
 ## Adding a project
 
 1. Create a repo next to this one with the layout of `tomerSP/qr`: the public
    page in `site/`, everything else outside it, and
-   `.github/workflows/pages.yml` publishing `site/`.
+   a `netlify.toml` with `publish = "site"`; import the repo in Netlify.
 2. Copy `assets/style.css` into `site/assets/`. Copy the `.crumb`,
    `header.site` and `footer.site` blocks from an existing project page; the
-   crumb links to `https://tomersp.github.io/playground/`.
+   crumb links to `https://tsp-playground.netlify.app/`.
 3. When it launches, add a card to the grid in `index.html` linking to
-   `https://tomersp.github.io/<repo>/` (and delete the matching `.soon`
+   its Netlify URL (and delete the matching `.soon`
    placeholder if there is one), and add a row to the table above.
 
 ## Moving a project out

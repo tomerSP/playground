@@ -1,8 +1,8 @@
 # Tomer's Playground
 
-Hub for a set of small browser tools. Each tool is its own repo publishing to
-`https://tomersp.github.io/<repo>/`; this repo is the hub page that links them,
-published at `https://tomersp.github.io/playground/`. No build step, no
+Hub for a set of small browser tools. Each tool is its own repo published as its
+own Netlify site; this repo is the hub page that links them,
+published at `https://tsp-playground.netlify.app/`. No build step, no
 framework, no backend.
 
 ## Layout
@@ -11,8 +11,8 @@ framework, no backend.
 index.html          hub page — one card per project
 about/index.html    About page
 assets/style.css    master copy of the shared shell (colors, cards, panels, dark mode)
-qr/index.html       redirect to https://tomersp.github.io/qr/ (moved to its own repo)
-.nojekyll           tells GitHub Pages to serve the files as-is
+qr/index.html       redirect to https://tsp-qr-maker.netlify.app/ (moved to its own repo)
+.nojekyll           tells GitHub Pages to serve the files as-is (legacy)
 ```
 
 ## Adding a project
