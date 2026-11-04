@@ -12,7 +12,6 @@ index.html          hub page — one card per project
 about/index.html    About page
 assets/style.css    master copy of the shared shell (colors, cards, panels, dark mode)
 qr/index.html       redirect to https://tsp-qr-maker.netlify.app/ (moved to its own repo)
-.nojekyll           tells GitHub Pages to serve the files as-is (legacy)
 ```
 
 ## Adding a project
