@@ -1,28 +1,47 @@
-/* Shared shell for the main site and every subsite. */
+/* Shared shell for the main site and every subsite.
+   Copied verbatim into each tool repo; edit here first, then copy. */
+
+@font-face {
+  font-family: "Atkinson Hyperlegible Next";
+  src: url("./fonts/atkinson-next-latin.woff2") format("woff2");
+  font-weight: 200 800;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Atkinson Hyperlegible Mono";
+  src: url("./fonts/atkinson-mono-latin.woff2") format("woff2");
+  font-weight: 200 800;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
 :root {
-  --bg: #fbfaf8;
+  --bg: #fbf8f4;
   --panel: #ffffff;
-  --ink: #1a1a1a;
-  --muted: #6b6b6b;
-  --line: #e4e1dc;
-  --accent: #2f6f4f;
+  --ink: #1f1b18;
+  --muted: #6b635c;
+  --line: #e8e1d9;
+  --accent: #c4471f;
+  --accent-soft: #fbe6dc;
   --accent-ink: #ffffff;
   --warn: #9a4a1e;
-  --radius: 10px;
-  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
-  --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --mono: "Atkinson Hyperlegible Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --sans: "Atkinson Hyperlegible Next", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #14161a;
-    --panel: #1c1f24;
-    --ink: #e8e6e3;
-    --muted: #9a9a9a;
-    --line: #2e3238;
-    --accent: #5fb98a;
-    --accent-ink: #10221a;
+    --bg: #16130f;
+    --panel: #211d19;
+    --ink: #ede7e0;
+    --muted: #a39a91;
+    --line: #342e28;
+    --accent: #ff8a65;
+    --accent-soft: #3a2219;
+    --accent-ink: #1a0d07;
     --warn: #e08a5a;
   }
 }
@@ -33,103 +52,181 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--ink);
-  font: 16px/1.6 var(--sans);
+  font: 17px/1.6 var(--sans);
   -webkit-font-smoothing: antialiased;
 }
 
 .wrap {
-  max-width: 880px;
+  max-width: 920px;
   margin: 0 auto;
-  padding: 32px 20px 72px;
+  padding: 24px 24px 80px;
 }
 
-a { color: var(--accent); }
+a { color: var(--accent); text-underline-offset: .18em; }
 
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Header: brand left, links right. Same on every page. */
 header.site {
   display: flex;
-  align-items: baseline;
-  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
   flex-wrap: wrap;
-  margin-bottom: 8px;
+  padding-bottom: 20px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--line);
 }
 
-header.site h1 {
-  font-size: 24px;
-  margin: 0;
-  letter-spacing: -0.01em;
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 18px;
+  text-decoration: none;
 }
 
-header.site .tag {
-  color: var(--muted);
-  font-size: 14px;
+.brand::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  background: var(--accent);
 }
 
-.crumb {
-  font-size: 14px;
-  color: var(--muted);
-  margin-bottom: 20px;
+nav.site { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 15px; }
+nav.site a { color: var(--muted); text-decoration: none; }
+nav.site a:hover, nav.site a[aria-current="page"] { color: var(--ink); }
+
+/* Page title on tool pages; the hub and About style their own. */
+h1 {
+  margin: 0 0 12px;
+  font-size: clamp(30px, 5vw, 42px);
+  line-height: 1.12;
+  letter-spacing: -.02em;
 }
 
+/* Older tool pages still use a crumb line under the header. */
+.crumb { font-size: 14px; color: var(--muted); margin-bottom: 20px; }
 .crumb a { text-decoration: none; }
 .crumb a:hover { text-decoration: underline; }
 
 .lede {
   color: var(--muted);
-  max-width: 60ch;
+  max-width: 52ch;
+  font-size: 19px;
   margin: 0 0 32px;
 }
 
 /* Card grid used by the hub page */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .card {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 16px;
+  padding: 22px;
   text-decoration: none;
   color: inherit;
-  transition: border-color .12s ease, transform .12s ease;
+  transition: border-color .12s ease, transform .12s ease, box-shadow .12s ease;
 }
 
-.card:hover { border-color: var(--accent); transform: translateY(-1px); }
-.card h3 { margin: 0 0 4px; font-size: 16px; }
-.card p { margin: 0; font-size: 14px; color: var(--muted); }
-.card.soon { opacity: .55; pointer-events: none; }
+a.card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px -12px var(--accent);
+}
 
+.card .icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 6px;
+  border-radius: 10px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font: 700 18px var(--mono);
+}
+
+.card h3 { margin: 0; font-size: 19px; line-height: 1.3; }
+.card p { margin: 0; font-size: 15px; color: var(--muted); }
+.card .go { margin-top: auto; padding-top: 8px; font-weight: 700; font-size: 15px; color: var(--accent); }
+
+.card.soon { background: transparent; border-style: dashed; }
+.card.soon .icon { background: var(--line); color: var(--muted); }
+.card .badge {
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--line);
+  color: var(--muted);
+  font: 600 12px var(--mono);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+/* Tool UI */
 .panel {
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 18px;
+  padding: 20px;
 }
 
-label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+label { display: block; font-size: 14px; color: var(--muted); margin-bottom: 6px; }
 
-textarea, input[type="text"], select {
+textarea, input[type="text"], input[type="number"], select {
   width: 100%;
-  font: 14px/1.5 var(--sans);
+  font: 15px/1.5 var(--sans);
   color: var(--ink);
   background: var(--bg);
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 10px 12px;
 }
 
 textarea { resize: vertical; min-height: 110px; font-family: var(--mono); }
 
+textarea:focus, input[type="text"]:focus, input[type="number"]:focus, select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+input[type="range"] { width: 100%; accent-color: var(--accent); }
+input[type="checkbox"], input[type="radio"] { accent-color: var(--accent); }
+
+input[type="file"] { font: 15px var(--sans); color: var(--muted); max-width: 100%; }
+input[type="file"]::file-selector-button {
+  margin-right: 12px;
+  font: 600 15px var(--sans);
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: var(--accent-ink);
+  cursor: pointer;
+}
+
 button {
-  font: 14px var(--sans);
-  padding: 9px 14px;
-  border-radius: 8px;
+  font: 600 15px var(--sans);
+  padding: 10px 16px;
+  border-radius: 10px;
   border: 1px solid var(--line);
   background: var(--panel);
   color: var(--ink);
@@ -138,12 +235,26 @@ button {
 
 button:hover { border-color: var(--accent); }
 button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+button.primary:hover { filter: brightness(1.08); }
 button:disabled { opacity: .45; cursor: not-allowed; }
 
+footer.site p { margin: 0 0 4px; }
+
 footer.site {
-  margin-top: 56px;
-  padding-top: 18px;
+  margin-top: 72px;
+  padding-top: 20px;
   border-top: 1px solid var(--line);
-  font-size: 13px;
+  font-size: 14px;
   color: var(--muted);
+}
+
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .wrap { padding: 18px 18px 64px; }
+  header.site { margin-bottom: 28px; }
+  .lede { font-size: 17px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card, a.card:hover { transition: none; transform: none; }
 }

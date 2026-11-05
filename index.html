@@ -5,45 +5,101 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tomer's Playground — small tools that do one thing</title>
 <meta name="description" content="A growing set of small, free, single-purpose web tools. No sign-up, nothing uploaded, everything runs in your browser.">
+<link rel="preload" href="./assets/fonts/atkinson-next-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="./assets/style.css">
+<style>
+  /* Hero */
+  .hero { margin-bottom: 48px; }
+
+  .eyebrow {
+    margin: 0 0 12px;
+    color: var(--accent);
+    font: 600 13px var(--mono);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .hero h1 {
+    margin: 0 0 16px;
+    max-width: 16ch;
+    font-size: clamp(36px, 7vw, 60px);
+    line-height: 1.05;
+    letter-spacing: -.025em;
+  }
+
+  .points {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font: 14px var(--mono);
+  }
+
+  .points li {
+    padding: 4px 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--panel);
+  }
+
+  .section-title {
+    margin: 0 0 16px;
+    font: 600 13px var(--mono);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+</style>
 </head>
 <body>
 <div class="wrap">
 
   <header class="site">
-    <h1>Tomer's Playground</h1>
-    <span class="tag">small tools that do one thing</span>
+    <a class="brand" href="./">Tomer's Playground</a>
+    <nav class="site"><a href="./">All tools</a><a href="./about/">About</a></nav>
   </header>
 
-  <p class="lede">
-    Free, single-purpose web tools. No accounts, no uploads — everything runs
-    locally in your browser.
-  </p>
+  <section class="hero">
+    <p class="eyebrow">Free web tools</p>
+    <h1>Small tools that do one thing.</h1>
+    <p class="lede">
+      Pick a tool and use it straight away. No accounts, no uploads —
+      everything runs locally in your browser.
+    </p>
+    <ul class="points">
+      <li>Free</li>
+      <li>No sign-up</li>
+      <li>Runs in your browser</li>
+    </ul>
+  </section>
 
+  <h2 class="section-title">Tools</h2>
   <ul class="grid">
     <li>
-      <a class="card" href="./about/">
-        <h3>About me</h3>
-        <p>Not much to say...</p>
-      </a>
-    </li>
-    <li>
       <a class="card" href="https://tsp-qr-maker.netlify.app/">
+        <span class="icon" aria-hidden="true">QR</span>
         <h3>File &amp; text → QR code</h3>
         <p>Turn a link, some text, Wi-Fi details or a small file into a QR code. Download as PNG or SVG.</p>
+        <span class="go">Make a QR code →</span>
       </a>
     </li>
     <li>
-      <span class="card soon">
+      <div class="card soon">
+        <span class="icon" aria-hidden="true">@#</span>
         <h3>Image → ASCII art</h3>
-        <p>Coming soon.</p>
-      </span>
+        <p>Turn a photo into text art you can copy and paste.</p>
+        <span class="badge">Coming soon</span>
+      </div>
     </li>
     <li>
-      <span class="card soon">
+      <div class="card soon">
+        <span class="icon" aria-hidden="true">f(x)</span>
         <h3>Scientific calculator</h3>
-        <p>Coming soon.</p>
-      </span>
+        <p>A scientific calculator that runs in your browser.</p>
+        <span class="badge">Coming soon</span>
+      </div>
     </li>
   </ul>
 

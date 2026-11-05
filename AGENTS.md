@@ -50,9 +50,10 @@ qr/index.html       redirect to https://tsp-qr-maker.netlify.app/
 1. Create a repo next to this one with the layout of `tomerSP/qr`: the public
    page in `site/`, everything else outside it, and
    a `netlify.toml` with `publish = "site"`; import the repo in Netlify.
-2. Copy `assets/style.css` into `site/assets/`. Copy the `.crumb`,
-   `header.site` and `footer.site` blocks from an existing project page; the
-   crumb links to `https://tsp-playground.netlify.app/`.
+2. Copy `assets/style.css` and `assets/fonts/` into `site/assets/`. Copy the
+   `header.site` (brand plus "All tools" and "About" links to
+   `https://tsp-playground.netlify.app/`) and `footer.site` blocks from an
+   existing project page, and the font `preload` link from its `<head>`.
 3. When it launches, add a card to the grid in `index.html` linking to
    its Netlify URL (and delete the matching `.soon`
    placeholder if there is one), and add a row to the table above.
@@ -66,13 +67,17 @@ search rankings carry over.
 
 ## Styling
 
+Design decisions (audience, mood, and the reasons behind palette and fonts)
+are in `docs/design-brief.md`; it covers every project. Fonts are self-hosted
+in `assets/fonts/` (SIL OFL, license alongside).
+
 Use the CSS custom properties in `assets/style.css` (`--ink`, `--bg`, `--panel`,
 `--line`, `--accent`, `--muted`). Never hard-code a color that has a token —
 dark mode is driven entirely by those tokens under
 `@media (prefers-color-scheme: dark)`. Page-specific CSS goes in a `<style>`
 block on that page — do not grow `assets/style.css` for one page's needs.
 
-Projects carry copies of `assets/style.css`. When you change it here, say which
+Projects carry copies of `assets/style.css` and `assets/fonts/`. When you change it here, say which
 projects need the new copy; don't edit their repos from here.
 
 ## SEO

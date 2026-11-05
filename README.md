@@ -28,5 +28,5 @@ npx serve .
 ## Renaming the site
 
 The name appears in `index.html` (`<title>`, `<h1>`), the About page, each
-project's `.crumb` link text, and this file. It is a find-and-replace across
+project's header brand link, and this file. It is a find-and-replace across
 repos, not a refactor.
