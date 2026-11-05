@@ -28,12 +28,15 @@
   --accent-ink: #ffffff;
   --warn: #9a4a1e;
   --radius: 14px;
+  color-scheme: light;
   --mono: "Atkinson Hyperlegible Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --sans: "Atkinson Hyperlegible Next", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
+/* Dark tokens apply when the system asks for dark (unless the visitor picked
+   light), or when the visitor picked dark. theme.js sets data-theme. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #16130f;
     --panel: #211d19;
     --ink: #ede7e0;
@@ -43,7 +46,21 @@
     --accent-soft: #3a2219;
     --accent-ink: #1a0d07;
     --warn: #e08a5a;
+    color-scheme: dark;
   }
+}
+
+:root[data-theme="dark"] {
+  --bg: #16130f;
+  --panel: #211d19;
+  --ink: #ede7e0;
+  --muted: #a39a91;
+  --line: #342e28;
+  --accent: #ff8a65;
+  --accent-soft: #3a2219;
+  --accent-ink: #1a0d07;
+  --warn: #e08a5a;
+  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -96,9 +113,59 @@ header.site {
   background: var(--accent);
 }
 
-nav.site { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 15px; }
+nav.site { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; font-size: 15px; }
 nav.site a { color: var(--muted); text-decoration: none; }
 nav.site a:hover, nav.site a[aria-current="page"] { color: var(--ink); }
+
+/* Light / dark / system switch, added to nav.site by theme.js */
+.theme-switch {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+}
+
+.theme-switch button {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+}
+
+.theme-switch button:hover { color: var(--ink); }
+.theme-switch button[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); }
+.theme-switch svg { width: 16px; height: 16px; }
+
+/* Label pops up after a short hover, or straight away on keyboard focus */
+.theme-switch button::after {
+  content: attr(data-tip);
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  z-index: 10;
+  transform: translateX(-50%);
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: var(--ink);
+  color: var(--bg);
+  font: 500 12px var(--sans);
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .12s ease, visibility .12s;
+}
+
+.theme-switch button:hover::after { opacity: 1; visibility: visible; transition-delay: .5s; }
+.theme-switch button:focus-visible::after { opacity: 1; visibility: visible; }
 
 /* Page title on tool pages; the hub and About style their own. */
 h1 {
@@ -153,8 +220,10 @@ a.card:hover {
 .card .icon {
   display: grid;
   place-items: center;
-  width: 44px;
+  align-self: flex-start;
+  min-width: 44px;
   height: 44px;
+  padding: 0 10px;
   margin-bottom: 6px;
   border-radius: 10px;
   background: var(--accent-soft);

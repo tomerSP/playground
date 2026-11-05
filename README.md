@@ -1,4 +1,4 @@
-# Tomer's Playground
+# My Playground
 
 Hub for a set of small browser tools. Each tool is its own repo published as its
 own Netlify site; this repo is the hub page that links them,
