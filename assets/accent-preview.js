@@ -1,28 +1,28 @@
-/* TEMPORARY: accent colour preview. Adds a floating swatch picker in the
-   bottom-right corner that swaps --accent, --accent-soft and --accent-ink for
-   both light and dark mode. The pick is saved in localStorage, so it follows
-   you between pages on the same site. Every preset clears WCAG AA for links,
-   button text and accent-on-tint text.
+/* TEMPORARY: backdrop colour preview. Adds a floating swatch picker in the
+   bottom-right corner that swaps the neutral tokens (--bg, --panel, --ink,
+   --muted, --line) for both light and dark mode. The accent stays as set in
+   style.css. The pick is saved in localStorage, so it follows you between
+   pages on the same site. Every preset keeps text, muted text and the accent
+   at WCAG AA on both the page and panel colours.
 
    To remove: delete this file and its <script> tag on each page. Once a
-   colour is chosen, copy its values into the tokens in style.css. */
+   backdrop is chosen, copy its values into the tokens in style.css. */
 (function () {
-  var KEY = 'accent-preview';
+  var KEY = 'backdrop-preview';
 
-  // name: [light accent, light soft, light ink], [dark accent, dark soft, dark ink]
+  // name: [light bg, panel, ink, muted, line], [dark bg, panel, ink, muted, line]
   var PRESETS = {
-    Coral:  [['#c4471f', '#fef3ee', '#ffffff'], ['#ff8a65', '#3a2219', '#1a0d07']],
-    Teal:   [['#0f766e', '#d7efeb', '#ffffff'], ['#2dd4bf', '#10302c', '#04201c']],
-    Blue:   [['#2b59c3', '#e2e9fa', '#ffffff'], ['#7fa6ff', '#1b2440', '#0a1430']],
-    Violet: [['#7a3ec2', '#ece3f9', '#ffffff'], ['#b897f7', '#2a1f3d', '#1b0f30']],
-    Green:  [['#2e7a35', '#e6f3e3', '#ffffff'], ['#7fd18b', '#18291a', '#0a1f0d']],
-    Amber:  [['#9a5800', '#f7ead2', '#ffffff'], ['#f2b445', '#33260f', '#241600']],
-    Rose:   [['#bc2a5c', '#fae0e9', '#ffffff'], ['#ff7fa6', '#3a1a25', '#2a0714']]
+    Warm:  [['#fbf8f4', '#ffffff', '#1f1b18', '#6b635c', '#e8e1d9'], ['#16130f', '#211d19', '#ede7e0', '#a39a91', '#342e28']],
+    Sand:  [['#fcf6ea', '#fffcf5', '#2a2118', '#6a5e50', '#e8dcc6'], ['#1c1712', '#272019', '#efe6da', '#ab9e8d', '#3a3128']],
+    Stone: [['#f5f5f4', '#ffffff', '#1c1c1b', '#5f5f5c', '#e2e2df'], ['#141414', '#1e1e1d', '#ececea', '#a1a19d', '#2f2f2d']],
+    Slate: [['#f3f5f8', '#ffffff', '#1a1f2b', '#566072', '#dfe3ea'], ['#0f131a', '#181d26', '#e6e9ef', '#9aa3b2', '#2a313d']],
+    Sage:  [['#f7f9f4', '#fdfefb', '#1d2119', '#5a6354', '#dfe5d8'], ['#121510', '#1b2018', '#e6eae0', '#9ba393', '#2c3328']],
+    Mono:  [['#ffffff', '#ffffff', '#111111', '#5c5c5c', '#e5e5e5'], ['#000000', '#0e0e0e', '#f0f0f0', '#a3a3a3', '#262626']]
   };
-  var NAMES = ['Coral', 'Teal', 'Blue', 'Violet', 'Green', 'Amber', 'Rose'];
+  var NAMES = ['Warm', 'Sand', 'Stone', 'Slate', 'Sage', 'Mono'];
 
   function vars(t) {
-    return '--accent:' + t[0] + ';--accent-soft:' + t[1] + ';--accent-ink:' + t[2] + ';';
+    return '--bg:' + t[0] + ';--panel:' + t[1] + ';--ink:' + t[2] + ';--muted:' + t[3] + ';--line:' + t[4] + ';';
   }
 
   // Same selectors as style.css, so the light/dark/system switch still works.
@@ -34,7 +34,7 @@
   }
 
   function saved() {
-    try { return localStorage.getItem(KEY) || 'Coral'; } catch (e) { return 'Coral'; }
+    try { return localStorage.getItem(KEY) || 'Warm'; } catch (e) { return 'Warm'; }
   }
 
   // Appended after style.css, so these win at equal specificity.
@@ -44,18 +44,18 @@
   apply(saved());
 
   var UI_CSS =
-    '.accent-preview{position:fixed;right:16px;bottom:16px;z-index:50;display:flex;align-items:center;gap:6px;' +
+    '.backdrop-preview{position:fixed;right:16px;bottom:16px;z-index:50;display:flex;align-items:center;gap:6px;' +
     'padding:6px 8px 6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--panel);' +
     'box-shadow:0 6px 24px -12px rgba(0,0,0,.35);font:600 12px var(--sans);color:var(--muted)}' +
-    '.accent-preview span{margin-right:4px}' +
-    '.accent-preview button{position:relative;width:22px;height:22px;padding:0;border-radius:999px;' +
-    'border:2px solid var(--panel);box-shadow:0 0 0 1px var(--line);cursor:pointer}' +
-    '.accent-preview button[aria-pressed="true"]{box-shadow:0 0 0 2px var(--ink)}' +
-    '.accent-preview button::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 10px);left:50%;' +
+    '.backdrop-preview span{margin-right:4px}' +
+    '.backdrop-preview button{position:relative;width:22px;height:22px;padding:0;border-radius:999px;' +
+    'border:1px solid var(--muted);cursor:pointer}' +
+    '.backdrop-preview button[aria-pressed="true"]{box-shadow:0 0 0 2px var(--panel),0 0 0 4px var(--accent)}' +
+    '.backdrop-preview button::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 10px);left:50%;' +
     'transform:translateX(-50%);padding:4px 8px;border-radius:6px;background:var(--ink);color:var(--bg);' +
     'font:500 12px var(--sans);white-space:nowrap;opacity:0;visibility:hidden;pointer-events:none;' +
     'transition:opacity .12s ease,visibility .12s}' +
-    '.accent-preview button:hover::after,.accent-preview button:focus-visible::after{opacity:1;visibility:visible}';
+    '.backdrop-preview button:hover::after,.backdrop-preview button:focus-visible::after{opacity:1;visibility:visible}';
 
   function build() {
     var style = document.createElement('style');
@@ -63,10 +63,10 @@
     document.head.appendChild(style);
 
     var bar = document.createElement('div');
-    bar.className = 'accent-preview';
+    bar.className = 'backdrop-preview';
     bar.setAttribute('role', 'group');
-    bar.setAttribute('aria-label', 'Accent colour preview');
-    bar.innerHTML = '<span>Accent</span>';
+    bar.setAttribute('aria-label', 'Backdrop colour preview');
+    bar.innerHTML = '<span>Backdrop</span>';
 
     var buttons = [];
     function sync() {
@@ -77,14 +77,14 @@
     }
 
     for (var i = 0; i < NAMES.length; i++) {
+      var p = PRESETS[NAMES[i]];
       var b = document.createElement('button');
       b.type = 'button';
       b.value = NAMES[i];
       b.setAttribute('data-tip', NAMES[i]);
       b.setAttribute('aria-label', NAMES[i]);
-      // Swatch shows the light and dark shades side by side.
-      b.style.background = 'linear-gradient(135deg,' + PRESETS[NAMES[i]][0][0] + ' 50%,' +
-        PRESETS[NAMES[i]][1][0] + ' 50%)';
+      // Swatch: light backdrop top-left, dark backdrop bottom-right.
+      b.style.background = 'linear-gradient(135deg,' + p[0][0] + ' 50%,' + p[1][0] + ' 50%)';
       b.addEventListener('click', function () {
         try { localStorage.setItem(KEY, this.value); } catch (e) {}
         apply(this.value);
