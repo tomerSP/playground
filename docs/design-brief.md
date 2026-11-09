@@ -18,7 +18,7 @@ Trust line for now: free, no required sign-up, runs in your browser. "Nothing up
 
 ## Reasons behind choices
 
-- **Warm coral accent:** energy and play on a calm warm-neutral base. The light-mode shade is darkened so links and button text clear WCAG AA.
+- **Coral accent on a black-and-white base:** the neutral base keeps the tools plain and high-contrast, and the one warm accent adds energy and play. The light-mode shade is darkened so links and button text clear WCAG AA.
 - **Atkinson Hyperlegible Next + Mono:** humanist sans for readability; its mono sibling pairs by similarity and suits the tool and ASCII feel. Self-hosted, so pages make no third-party requests.
 - **Explicit light/dark/system switch:** visitors can override their system setting; icons keep it small, with a delayed text label for anyone unsure.
 - **Reading pattern:** Z on the hub (sparse, scanned fast); F on tool pages (controls down the left).

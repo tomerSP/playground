@@ -18,11 +18,11 @@
 }
 
 :root {
-  --bg: #fbf8f4;
+  --bg: #ffffff;
   --panel: #ffffff;
-  --ink: #1f1b18;
-  --muted: #6b635c;
-  --line: #e8e1d9;
+  --ink: #111111;
+  --muted: #5c5c5c;
+  --line: #e5e5e5;
   --accent: #c4471f;
   --accent-soft: #fef3ee;
   --accent-ink: #ffffff;
@@ -37,11 +37,11 @@
    light), or when the visitor picked dark. theme.js sets data-theme. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #16130f;
-    --panel: #211d19;
-    --ink: #ede7e0;
-    --muted: #a39a91;
-    --line: #342e28;
+    --bg: #000000;
+    --panel: #0e0e0e;
+    --ink: #f0f0f0;
+    --muted: #a3a3a3;
+    --line: #262626;
     --accent: #ff8a65;
     --accent-soft: #3a2219;
     --accent-ink: #1a0d07;
@@ -51,11 +51,11 @@
 }
 
 :root[data-theme="dark"] {
-  --bg: #16130f;
-  --panel: #211d19;
-  --ink: #ede7e0;
-  --muted: #a39a91;
-  --line: #342e28;
+  --bg: #000000;
+  --panel: #0e0e0e;
+  --ink: #f0f0f0;
+  --muted: #a3a3a3;
+  --line: #262626;
   --accent: #ff8a65;
   --accent-soft: #3a2219;
   --accent-ink: #1a0d07;
