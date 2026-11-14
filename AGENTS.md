@@ -19,7 +19,7 @@ Netlify site:
 | Project | Repo | Status |
 | --- | --- | --- |
 | QR | `tomerSP/qr` | live at `https://tsp-qr-maker.netlify.app/`; old `/qr/` here redirects |
-| Image to ASCII | `tomerSP/image-to-ascii` | deployed at `https://image-2-ascii.netlify.app/`; pre-launch, not on the hub |
+| Image to ASCII | `tomerSP/image-to-ascii` | live at `https://image-2-ascii.netlify.app/` |
 | Custom calculator | `tomerSP/custom-calculator` | planning, no page |
 
 Work on a project happens in its repo, under its own AGENTS.md.
